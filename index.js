@@ -1,14 +1,5 @@
-// after run
-/*
-1)install gh
-2)create repo
-3)create 3.0-simple_web_server
-4)finish 3.1
-
-*/
-
-
-const http = require('http')
+const express = require('express')
+const app = express()
 
 let persons = [
   { 
@@ -33,9 +24,12 @@ let persons = [
   }
 ]
 
-const app = http.createServer((request, response) => {
-  response.writeHead(200, { 'Content-Type': 'application/json' })
-  response.end(JSON.stringify(persons))
+app.get('/',(req,res) =>{
+  res.send('<h1>test</h1>')
+})
+
+app.get('/api/persons',(req,res) =>{
+  res.json(persons)
 })
 
 const PORT = 3001
