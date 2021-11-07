@@ -36,7 +36,7 @@ app.get('/api/info',(req,res) =>{
   res.send(`<p>phonebook has info for ${persons.length} people </p> <p>${new Date()}</p>`)
 })
 
-//3.2 - Fetching a single resource
+//3.3 - Fetching a single resource
 //the url directs the functionality
 //here the route indicates fetching a single resource based off id
 //we take the id by looking at the parameters of the request (more details on the express routing page)
