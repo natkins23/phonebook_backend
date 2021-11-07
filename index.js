@@ -1,8 +1,4 @@
-// after run
-/*
-1)install gh
-2)create repo
-3)create 3.0-simple_web_server
+/*3)create 3.0-simple_web_server
 4)finish 3.1
 
 */
