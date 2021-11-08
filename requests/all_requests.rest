@@ -10,7 +10,7 @@ POST http://localhost:3001/api/persons  HTTP/1.1
 Content-Type:application/json
 
 {
-    "id"2,
-    "name": "test penis",
+    "id":2,
+    "name": "test",
     "number": "39-23-6423122"
   }
