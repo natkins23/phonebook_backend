@@ -51,7 +51,7 @@ app.post('/api/persons', (request, response) => {
 //Note: you need the / before api - too tired to notice i misspelled api...
 app.delete('/api/persons/:id', (req, res)=>{
   const id = Number(req.params.id)
-  persons = persons.filter(p=>p.id === id)
+  persons = persons.filter(p=>p.id !== id)
   res.status(204).end()
 
 })
