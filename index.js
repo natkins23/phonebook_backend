@@ -38,12 +38,14 @@ app.get('/api/info',(req,res) =>{
   res.send(`<p>phonebook has info for ${persons.length} people </p> <p>${new Date()}</p>`)
 })
 
-//3.5 - Post request - adding entries
+
+//3.5 - Post request - adding entries - increment ids
 app.post('/api/persons', (request, response) => {
-  const id = Math.floor(Math.random()*100000 + 1)
   
+  const maxId = persons.length > 0 ? Math.max(...(persons.map(p=>p.id))): 0
+    
   const person = request.body
-  person.id = id
+  person.id = maxId + 1
   persons = persons.concat(person)
   
   response.json(person)
