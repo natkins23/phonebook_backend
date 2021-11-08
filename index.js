@@ -38,10 +38,14 @@ app.get('/api/info',(req,res) =>{
   res.send(`<p>phonebook has info for ${persons.length} people </p> <p>${new Date()}</p>`)
 })
 
+//3.5 - Post request - adding entries
 app.post('/api/persons', (request, response) => {
+  const id = Math.floor(Math.random()*100000 + 1)
+  
   const person = request.body
-  console.log(person)
-  persons.push(person)
+  person.id = id
+  persons = persons.concat(person)
+  
   response.json(person)
 })
 
