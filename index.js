@@ -38,14 +38,6 @@ app.get('/api/info',(req,res) =>{
   res.send(`<p>phonebook has info for ${persons.length} people </p> <p>${new Date()}</p>`)
 })
 
-app.post('/api/persons', (request, response) => {
-  const person = request.body
-  console.log(person)
-  persons.push(person)
-  response.json(person)
-})
-
-
 
 //3.4 - delete a resource
 //Note: you need the / before api - too tired to notice i misspelled api...
@@ -55,8 +47,6 @@ app.delete('/api/persons/:id', (req, res)=>{
   res.status(204).end()
 
 })
-
-
 
 //3.3 - Fetching a single resource
 //the url directs the functionality
