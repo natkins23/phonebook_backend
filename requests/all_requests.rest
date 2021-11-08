@@ -11,6 +11,6 @@ Content-Type:application/json
 
 {
     "id":2,
-    "name": "test penis",
+    "name": "test",
     "number": "39-23-6423122"
   }
