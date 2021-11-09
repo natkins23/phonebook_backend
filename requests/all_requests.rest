@@ -11,5 +11,5 @@ Content-Type:application/json
 
 {
     "name": "test",
-    "number": "39-23-6423122"
+    "number": "123"
   }

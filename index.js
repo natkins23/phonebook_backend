@@ -39,16 +39,31 @@ app.get('/api/info',(req,res) =>{
 })
 
 
+
 //3.5 - Post request - adding entries - increment ids
-app.post('/api/persons', (request, response) => {
-  
-  const maxId = persons.length > 0 ? Math.max(...(persons.map(p=>p.id))): 0
-    
-  const person = request.body
+app.post('/api/persons', (req, res) => {
+  const maxId = persons.length > 0 ? Math.max(...(persons.map(p=>p.id))): 0    
+  const person = req.body
+  const nameExists = persons.find(p=>p.name === person.name)
+
+  ////3.6 -error handling
+  if(!person.name){
+    return res.status(400).json({ 
+      error: 'name missing' 
+    })
+  }
+  else if  (!person.number){
+    return respresonse.status(400).json({ 
+      error: 'name missing' 
+    })
+  }else if  (nameExists){
+    return res.status(400).json({ 
+      error: 'name exists' 
+    })
+  }
   person.id = maxId + 1
   persons = persons.concat(person)
-  
-  response.json(person)
+  res.json(person)
 })
 
 
