@@ -3,8 +3,11 @@ const app = express()
 const morgan = require('morgan')
 app.use(express.json())
 
+//3.8 - morgan - logger middleware
+morgan.token('body', req => JSON.stringify(req.body))
 
-app.use(morgan('tiny'))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+
 
 let persons = [
   { 
@@ -42,10 +45,15 @@ app.get('/api/info',(req,res) =>{
 })
 
 
+const generateId = () => {
+  const maxId = persons.length > 0
+    ? Math.max(...persons.map(p => p.id))
+    : 0
+  return maxId + 1
+}
 
 //3.5 - Post request - adding entries - increment ids
-app.post('/api/persons', (req, res) => {
-  const maxId = persons.length > 0 ? Math.max(...(persons.map(p=>p.id))): 0    
+app.post('/api/persons', (req, res) => { 
   const person = req.body
   const nameExists = persons.find(p=>p.name === person.name)
 
@@ -64,9 +72,14 @@ app.post('/api/persons', (req, res) => {
       error: 'name exists' 
     })
   }
-  person.id = maxId + 1
-  persons = persons.concat(person)
-  res.json(person)
+  const newPerson = {
+    id: generateId(),
+    name: person.name,
+    number: person.number
+  }
+  //note - if i tried to add id to the person constant, it would manipulate the req.body object.
+  persons = persons.concat(newPerson)
+  res.json(newPerson)
 })
 
 
