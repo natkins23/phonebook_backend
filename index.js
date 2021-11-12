@@ -7,6 +7,7 @@ const app = express()
 //3.8 - morgan - logger middleware
 morgan.token('body', req => JSON.stringify(req.body))
 
+app.use(express.static('build'))
 app.use(cors())
 app.use(express.json())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
@@ -35,9 +36,6 @@ let persons = [
   }
 ]
 
-app.get('/',(req,res) =>{
-  res.send('<h1>test</h1>')
-})
 
 app.get('/api/persons',(req,res) =>{
   res.json(persons)
