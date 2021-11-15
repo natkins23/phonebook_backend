@@ -1,4 +1,5 @@
 const {exec} = require('child_process')
+const {stdout,stderr} = require('process')
 let args = process.argv
 
 let msg = args.slice(2).join(' ')
