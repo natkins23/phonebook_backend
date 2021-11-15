@@ -3,7 +3,7 @@ let args = process.argv
 
 let msg = args.slice(2).join(' ')
 if (!msg){
-    msg =`default update`
+    msg =`update`
 }
 console.log(`Adding, committing, and pushing changes... (${msg})`)
 
@@ -14,7 +14,7 @@ function addcb(err, stdout,stderr){
         console.log(err)
         return;
     }
-console.log(`changes added`)
+console.log(`Changes added`)
 exec(`git commit -m \"${msg}\"`, commitcb)
 }
 
@@ -23,7 +23,7 @@ function commitcb(err, stdout,stderr){
         console.log(err)
         return;
     }
-console.log(`changes committed`)
+console.log(`Changes committed`)
 exec(`git push`, pushcb)
 }
 function pushcb(err, stdout,stderr){
@@ -31,5 +31,5 @@ function pushcb(err, stdout,stderr){
         console.log(err)
         return;
     }
-console.log(`changes pushed`)
+console.log(`Changes pushed`)
 }
