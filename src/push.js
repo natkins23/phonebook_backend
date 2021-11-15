@@ -10,7 +10,11 @@ function addcb(err, stdout,stderr){
         console.log(err)
         return;
     }
-exec(`git commit -m \"${msg}\"`, commitcb)
+try {exec(`git commit -m \"${msg}\"`, commitcb)}
+catch(error){
+    console.log('test',error)
+    exec('git status')
+}
 }
 
 function commitcb(err, stdout,stderr){
