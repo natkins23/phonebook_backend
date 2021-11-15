@@ -2,7 +2,8 @@ const {exec} = require('child_process')
 let args = process.argv
 
 let msg = args.slice(2).join(' ')
-console.log(msg)
+console.log(`Adding, committing, and pushing changes: ${msg}...`)
+
 exec('git add .', addcb)
 
 function addcb(err, stdout,stderr){
@@ -10,30 +11,22 @@ function addcb(err, stdout,stderr){
         console.log(err)
         return;
     }
+console.log(`changes added`)
 exec(`git commit -m \"${msg}\"`, commitcb)
 }
 
 function commitcb(err, stdout,stderr){
     if (err){
         console.log(err)
-        exec('git status', statuscb)
         return;
     }
-    exec(`git push`, pushcb)
-
+console.log(`changes committed`)
+exec(`git push`, pushcb)
 }
 function pushcb(err, stdout,stderr){
     if (err){
         console.log(err)
         return;
     }
-    console.log('successful commit')
+console.log(`changes pushed`)
 }
-function statuscb(err, stdout,stderr){
-    if (err){
-        console.log(err)
-        return;
-    }
-    console.log('shown status')
-}
-
