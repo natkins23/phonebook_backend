@@ -15,7 +15,7 @@ exec(`git commit -m \"${msg}\"`, commitcb)
 
 function commitcb(err, stdout,stderr){
     if (err){
-        console.log(err)
+        console.log('this is a test',err)
         return;
     }
     exec(`git push`, pushcb)
