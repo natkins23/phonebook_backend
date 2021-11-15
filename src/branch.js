@@ -14,7 +14,7 @@ function test(err, stdout,stderr){
 
 function cb(err, stdout,stderr){
     if (err){
-        console.log(err)
+        console.log('this is a test',err)
         exec('git status',test)
         return
     }
