@@ -2,7 +2,7 @@ const {exec} = require('child_process')
 let args = process.argv
 
 let msg = args.slice(2).join(' ')
-
+console.log(msg)
 exec('git add .', add_cb)
 
 function add_cb(err, stdout,stderr){
