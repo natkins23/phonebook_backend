@@ -11,6 +11,7 @@ exec(`git push`, cb)
 function cb(err, stdout,stderr){
     if (err){
         console.log(err)
+        exec('git status')
         return
     }
 }
