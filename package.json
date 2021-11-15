@@ -11,7 +11,7 @@
     "deploy": "git push heroku main",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
     "logs:prod": "heroku logs --tail",
-    "commit": "git add . && git commit -m update && git push"
+    "commit": "node src/push.js"
   },
   "author": "Nathan Watkins",
   "license": "ISC",
