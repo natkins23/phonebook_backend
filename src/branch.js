@@ -2,25 +2,27 @@ const {exec} = require('child_process')
 let args = process.argv
 
 let msg = args.slice(2).join(' ')
+
 console.log(msg)
-exec('git add .', add_cb)
+exec('git add .', addcb)
 
-function add_cb(err, stdout,stderr){
+function addcb(err, stdout,stderr){
     if (err){
         console.log(err)
         return;
     }
-exec(`git commit -m \"${msg}\"`, commit_cb)
+exec(`git commit -m \"${msg}\"`, commitcb)
 }
-function commit_cb(err, stdout,stderr){
+
+function commitcb(err, stdout,stderr){
     if (err){
         console.log(err)
         return;
     }
-    exec(`git push`, push_cb)
+    exec(`git push`, pushcb)
 
 }
-function push_cb(err, stdout,stderr){
+function pushcb(err, stdout,stderr){
     if (err){
         console.log(err)
         return;
