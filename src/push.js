@@ -2,7 +2,10 @@ const {exec} = require('child_process')
 let args = process.argv
 
 let msg = args.slice(2).join(' ')
-console.log(`Adding, committing, and pushing changes: ${msg}...`)
+if (!msg){
+    msg =`default update`
+}
+console.log(`Adding, committing, and pushing changes... (${msg})`)
 
 exec('git add .', addcb)
 

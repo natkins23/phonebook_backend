@@ -14,7 +14,6 @@
     "qpush": "node src/push.js",
     "qbranch": "node src/branch.js",
     "qdelete": "node src/delete.js"
-
   },
   "author": "Nathan Watkins",
   "license": "ISC",
