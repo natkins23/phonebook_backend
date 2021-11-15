@@ -5,7 +5,11 @@ let args = process.argv
 let msg = args.slice(2).join(' ')
 
 exec('git add .', cb)
-exec(`git commit -m \"${msg}\"`, cb)
+try{
+    exec(`git commit -m \"${msg}\"`, cb)}
+    catch (error){
+        console.log('this is a test',err)
+    }
 exec(`git push`, cb)
 
 function test(err, stdout,stderr){
@@ -14,8 +18,8 @@ function test(err, stdout,stderr){
 
 function cb(err, stdout,stderr){
     if (err){
-        console.log('this is a test',err)
-        exec('git status',test)
+        // console.log('this is a test',err)
+        // exec('git status',test)
         return
     }
 }
