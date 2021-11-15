@@ -10,17 +10,13 @@ function addcb(err, stdout,stderr){
         console.log(err)
         return;
     }
-try {exec(`git commit -m \"${msg}\"`, commitcb)}
-catch(error){
-    console.log('test',error)
-    exec('git status')
-}
+exec(`git commit -m \"${msg}\"`, commitcb)
 }
 
 function commitcb(err, stdout,stderr){
     if (err){
         console.log(err)
-        exec('git status')
+        exec('git status', statuscb)
         return;
     }
     exec(`git push`, pushcb)
@@ -33,3 +29,11 @@ function pushcb(err, stdout,stderr){
     }
     console.log('successful commit')
 }
+function statuscb(err, stdout,stderr){
+    if (err){
+        console.log(err)
+        return;
+    }
+    console.log('shown status')
+}
+
