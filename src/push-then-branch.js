@@ -43,14 +43,15 @@ console.log(`Changes pushed`)
 //createing new branch
 let newBranch = exercise;
 
-console.log(`Creating new branch... (${newBranch})`)
-exec(`git branch \"${newBranch}\"`,makeBranch)
+
+setTimeout(() => exec(`git branch \"${newBranch}\"`,makeBranch), 3000)
 
 function makeBranch(err, stdout,stderr){
     if (err){
         console.log(err)
         return;
     }
+console.log(`Creating new branch... (${newBranch})`)
 exec(`git checkout \"${newBranch}\"`,checkoutNewBranch)
 console.log(`Branch made`)
 }

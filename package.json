@@ -14,7 +14,7 @@
     "qpush": "node src/push.js",
     "qbranch": "node src/branch.js",
     "qdeleteB": "node src/delete.js",
-    "qPB": "npm run qpush"
+    "qPB": "node src/push-then-branch.js"
   },
   "author": "Nathan Watkins",
   "license": "ISC",
