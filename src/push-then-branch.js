@@ -4,10 +4,12 @@ let msg = args.slice(2).join(' ')
 let exercise = args.slice(2,3)
 
 if (msg === exercise){
-    msg = `${exercise} done` 
+    msg = `${exercise} done: ${msg}` 
 }
 
 //pushing changes
+console.log('Message:',msg)
+console.log('Exercise:',exercise)
 
 console.log(`Nice job completing exercise ${exercise} saving your changes...`)
 
