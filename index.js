@@ -66,33 +66,51 @@ const generateId = () => {
 }
 
 //3.5 - Post request - adding entries - increment ids
-app.post('/api/persons', (req, res) => { 
-  const person = req.body
-  const nameExists = persons.find(p=>p.name === person.name)
+//3.5 post - deprecated
+// app.post('/api/persons', (req, res) => { 
+//   const person = req.body
+//   const nameExists = persons.find(p=>p.name === person.name)
 
-  ////3.6 -error handling
-  if(!person.name){
-    return res.status(400).json({ 
-      error: 'name missing' 
-    })
+//   ////3.6 -error handling
+//   if(!person.name){
+//     return res.status(400).json({ 
+//       error: 'name missing' 
+//     })
+//   }
+//   else if  (!person.number){
+//     return respresonse.status(400).json({ 
+//       error: 'name missing' 
+//     })
+//   }else if  (nameExists){
+//     return res.status(400).json({ 
+//       error: 'name exists' 
+//     })
+//   }
+//   const newPerson = {
+//     id: generateId(),
+//     name: person.name,
+//     number: person.number
+//   }
+//   //note - if i tried to add id to the person constant, it would manipulate the req.body object.
+//   persons = persons.concat(newPerson)
+//   res.json(newPerson)
+// })//end of post
+
+//3.14 post req - using MongoDB server
+app.post('/api/persons', (req, res) => { 
+  const body = req.body
+  if (body.name === undefined) {
+    return response.status(400).json({ error: 'name missing' })
+  }else if (body.number === undefined) {
+    return response.status(400).json({ error: 'number missing' })
   }
-  else if  (!person.number){
-    return respresonse.status(400).json({ 
-      error: 'name missing' 
-    })
-  }else if  (nameExists){
-    return res.status(400).json({ 
-      error: 'name exists' 
-    })
-  }
-  const newPerson = {
-    id: generateId(),
-    name: person.name,
-    number: person.number
-  }
-  //note - if i tried to add id to the person constant, it would manipulate the req.body object.
-  persons = persons.concat(newPerson)
-  res.json(newPerson)
+  const person = new Person({
+    name: req.body.name,
+    number: req.body.number
+})
+  person.save().then(savedPerson=>{
+    res.json(savedPerson);
+  })
 })
 
 
