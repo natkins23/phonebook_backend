@@ -1,6 +1,12 @@
+//3.13 - dotenv added / Person model imported
+
+//requiring dotenv allows us to reference enviornment variables when creating a Person model
+require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const Person = require('./models/person')
+
 
 const app = express()
 
@@ -40,8 +46,11 @@ app.get('/',(req,res) =>{
   res.send('<h1>Hello World!</h1>')
 })
 
+//3.13 - updated to recieve persons from mongodb server
 app.get('/api/persons',(req,res) =>{
+  Person.find({}).then(persons=>{
   res.json(persons)
+})
 })
 
 app.get('/api/info',(req,res) =>{
@@ -119,6 +128,6 @@ const unknownEndpoint = (request, response) => {
 app.use(unknownEndpoint)
 
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT)
 console.log(`Server running on port ${PORT}`)
