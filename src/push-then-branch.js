@@ -1,7 +1,13 @@
 const {exec} = require('child_process')
 let args = process.argv
-let msg = args.slice(2).join(' ')
+let msg = args.slice(3).join(' ')
 let exercise = args.slice(2,3).join(' ')
+
+
+//pushing changes
+console.log(`Nice job completing exercise ${exercise} saving your changes... (${msg})`)
+
+console.log(`Adding, committing, and pushing changes to main...`)
 
 if (msg === exercise){
     msg = `Exercise ${exercise} completed ` 
@@ -10,11 +16,6 @@ else{
     msg = `Exercise ${exercise} completed: ${msg}` 
      
 }
-
-//pushing changes
-console.log(`Nice job completing exercise ${exercise} saving your changes...`)
-
-console.log(`Adding, committing, and pushing changes... (${exercise})`)
 
 exec('git add .', addcb)
 
@@ -32,7 +33,7 @@ function commitcb(err, stdout,stderr){
         console.log(err)
         return;
     }
-console.log(`Changes committed`)
+console.log(`Changes committed: ${msg}`)
 exec(`git push`, pushcb)
 }
 function pushcb(err, stdout,stderr){
