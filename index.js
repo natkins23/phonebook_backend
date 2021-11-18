@@ -6,6 +6,7 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const Person = require('./models/person')
+const { json } = require('express')
 
 
 const app = express()
@@ -114,13 +115,20 @@ app.post('/api/persons', (req, res) => {
 })
 
 
-//3.4 - delete a resource
-//Note: you need the / before api - too tired to notice i misspelled api...
-app.delete('/api/persons/:id', (req, res)=>{
-  const id = Number(req.params.id)
-  persons = persons.filter(p=>p.id !== id)
-  res.status(204).end()
+//3.4 - delete a resource - deprecated
+// app.delete('/api/persons/:id', (req, res)=>{
+//   const id = Number(req.params.id)
+//   persons = persons.filter(p=>p.id !== id)
+//   res.status(204).end()
+// })
 
+//3.15 - delete using mongoDB schema
+app.delete('/api/persons/:id', (req, res)=>{
+  Person.findByIdAndRemove(req.params.id).then(result=>{
+    res.status(204).end()
+  }).catch(error=>{
+    next(error)
+  })
 })
 
 
