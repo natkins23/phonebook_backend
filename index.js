@@ -19,30 +19,6 @@ app.use(cors())
 app.use(express.json())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
-
-let persons = [
-  { 
-    "id": 1,
-    "name": "Arto Hellas", 
-    "number": "040-123456"
-  },
-  { 
-    "id": 2,
-    "name": "Ada Lovelace", 
-    "number": "39-44-5323523"
-  },
-  { 
-    "id": 3,
-    "name": "Dan Abramov", 
-    "number": "12-43-234345"
-  },
-  { 
-    "id": 4,
-    "name": "Mary Poppendieck", 
-    "number": "39-23-6423122"
-  }
-]
-
 app.get('/',(req,res) =>{
   res.send('<h1>Hello World!</h1>')
 })
@@ -114,30 +90,16 @@ app.post('/api/persons', (req, res) => {
   })
 })
 
-
-//3.4 - delete a resource - deprecated
-// app.delete('/api/persons/:id', (req, res)=>{
-//   const id = Number(req.params.id)
-//   persons = persons.filter(p=>p.id !== id)
-//   res.status(204).end()
-// })
-
 //3.15 - delete using mongoDB schema
 app.delete('/api/persons/:id', (req, res)=>{
   Person.findByIdAndRemove(req.params.id).then(result=>{
     res.status(204).end()
   }).catch(error=>{
+    //using 3.16 errorHandling middleware
     next(error)
   })
 })
 
-
-
-//3.3 - Fetching a single resource
-//the url directs the functionality
-//here the route indicates fetching a single resource based off id
-//we take the id by looking at the parameters of the request (more details on the express routing page)
-//this id is a string so we make it a numberr, and compare it to all the person objects in the person array and return the matching person
 app.get('/api/persons/:id',(req,res) =>{
   const id = req.params.id
   const person = persons.find(person=>person.id === Number(id))
@@ -151,7 +113,6 @@ const unknownEndpoint = (request, response) => {
 }
 
 app.use(unknownEndpoint)
-
 
 const PORT = process.env.PORT
 app.listen(PORT)
