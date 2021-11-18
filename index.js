@@ -114,6 +114,17 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint)
 
+
+//3.16 -error handler middleware
+const errorHandler = (error, req, res, next) => {
+  console.log(error.message);
+
+  if (error.message === 'CastError'){
+    return response.status(400).send({error:'malformatted id'})
+  }
+}
+app.use(errorHandler)
+
 const PORT = process.env.PORT
 app.listen(PORT)
 console.log(`Server running on port ${PORT}`)
