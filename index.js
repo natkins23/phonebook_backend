@@ -19,6 +19,13 @@ app.use(cors())
 app.use(express.json())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
+const generateId = () => {
+  const maxId = persons.length > 0
+    ? Math.max(...persons.map(p => p.id))
+    : 0
+  return maxId + 1
+}
+
 app.get('/',(req,res) =>{
   res.send('<h1>Hello World!</h1>')
 })
@@ -30,17 +37,20 @@ app.get('/api/persons',(req,res) =>{
 })
 })
 
-app.get('/api/info',(req,res) =>{
-  res.send(`<p>phonebook has info for ${persons.length} people </p> <p>${new Date()}</p>`)
+
+//depricated - removed local persons object
+// app.get('/api/info',(req,res) =>{
+//   res.send(`<p>phonebook has info for ${persons.length} people </p> <p>${new Date()}</p>`)
+// })
+
+
+app.get('/api/persons/:id',(req,res) =>{
+  const id = req.params.id
+  const person = persons.find(person=>person.id === Number(id))
+  if (person) res.json(person)
+  else res.status(404).end()
 })
 
-
-const generateId = () => {
-  const maxId = persons.length > 0
-    ? Math.max(...persons.map(p => p.id))
-    : 0
-  return maxId + 1
-}
 
 //3.5 - Post request - adding entries - increment ids
 //3.5 post - deprecated
@@ -98,13 +108,6 @@ app.delete('/api/persons/:id', (req, res)=>{
     //using 3.16 errorHandling middleware
     next(error)
   })
-})
-
-app.get('/api/persons/:id',(req,res) =>{
-  const id = req.params.id
-  const person = persons.find(person=>person.id === Number(id))
-  if (person) res.json(person)
-  else res.status(404).end()
 })
 
 
