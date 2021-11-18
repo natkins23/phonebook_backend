@@ -108,22 +108,11 @@ app.get('/api/persons/:id',(req,res) =>{
   else res.status(404).end()
 })
 
-
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
 
 app.use(unknownEndpoint)
-
-//3.16 -error handler middleware
-const errorHandler = (error, req, res, next) => {
-  console.log(error.message);
-
-  if (error.message === 'CastError'){
-    return response.status(400).send({error:'malformatted id'})
-  }
-}
-app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT)
