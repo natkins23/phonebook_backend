@@ -1,5 +1,4 @@
 //3.13 - dotenv added / Person model imported
-
 //requiring dotenv allows us to reference enviornment variables when creating a Person model
 require('dotenv').config()
 const express = require('express')
@@ -7,7 +6,6 @@ const morgan = require('morgan')
 const cors = require('cors')
 const Person = require('./models/person')
 const { json } = require('express')
-
 
 const app = express()
 
@@ -101,7 +99,7 @@ app.post('/api/persons', (req, res) => {
 })
 
 //3.15 - delete using mongoDB schema
-app.delete('/api/persons/:id', (req, res)=>{
+app.delete('/api/persons/:id', (req, res, next)=>{
   Person.findByIdAndRemove(req.params.id).then(result=>{
     res.status(204).end()
   }).catch(error=>{
