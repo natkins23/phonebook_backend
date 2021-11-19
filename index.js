@@ -101,7 +101,7 @@ app.delete('/api/persons/:id', (req, res, next) => {
       next(error)
     })
 })
-
+//3.17 - added put request
 app.put('/api/persons/:id', (req, res, next) => {
   const body = req.body
   person = { name: body.name, number: body.number }
