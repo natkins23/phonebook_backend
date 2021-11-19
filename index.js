@@ -18,63 +18,38 @@ app.use(express.json())
 app.use(
   morgan(':method :url :status :res[content-length] - :response-time ms :body')
 )
-
-app.get('/', (req, res) => {
-  res.send('<h1>Hello World!</h1>')
-})
-
 //3.13 - updated to recieve persons from mongodb server
-app.get('/api/persons', (req, res) => {
+app.get('/api/persons', (req, res, next) => {
   Person.find({}).then((persons) => {
     res.json(persons)
   })
 })
 
-//depricated - removed local persons object
-// app.get('/api/info',(req,res) =>{
-//   res.send(`<p>phonebook has info for ${persons.length} people </p> <p>${new Date()}</p>`)
-// })
-
-app.get('/api/persons/:id', (req, res) => {
-  const id = req.params.id
-  const person = persons.find((person) => person.id === Number(id))
-  if (person) res.json(person)
-  else res.status(404).end()
+//3.18 - updated get function based off info
+app.get('/api/info', (req, res, next) => {
+  Person.find({}).then((persons) => {
+    const content = `phonebook has info for ${persons.length} people
+    <br><br>
+    ${new Date()}`
+    res.send(content)
+  })
 })
 
-//3.5 - Post request - adding entries - increment ids
-//3.5 post - deprecated
-// app.post('/api/persons', (req, res) => {
-//   const person = req.body
-//   const nameExists = persons.find(p=>p.name === person.name)
-
-//   ////3.6 -error handling
-//   if(!person.name){
-//     return res.status(400).json({
-//       error: 'name missing'
-//     })
-//   }
-//   else if  (!person.number){
-//     return respresonse.status(400).json({
-//       error: 'name missing'
-//     })
-//   }else if  (nameExists){
-//     return res.status(400).json({
-//       error: 'name exists'
-//     })
-//   }
-//   const newPerson = {
-//     id: generateId(),
-//     name: person.name,
-//     number: person.number
-//   }
-//   //note - if i tried to add id to the person constant, it would manipulate the req.body object.
-//   persons = persons.concat(newPerson)
-//   res.json(newPerson)
-// })//end of post
+//3.18 - updated get function based on id
+app.get('/api/persons/:id', (req, res, next) => {
+  Person.findById(req.params.id)
+    .then((person) => {
+      if (person) {
+        res.json(person)
+      } else {
+        res.status(404).end()
+      }
+    })
+    .catch((error) => next(error))
+})
 
 //3.14 post req - using MongoDB server
-app.post('/api/persons', (req, res) => {
+app.post('/api/persons', (req, res, next) => {
   const body = req.body
   if (body.name === undefined) {
     return response.status(400).json({ error: 'name missing' })
@@ -102,6 +77,7 @@ app.delete('/api/persons/:id', (req, res, next) => {
     })
 })
 
+//3.17 post using mongoDB
 app.put('/api/persons/:id', (req, res, next) => {
   const body = req.body
   person = { name: body.name, number: body.number }
@@ -124,8 +100,10 @@ app.use(unknownEndpoint)
 const errorHandler = (error, req, res, next) => {
   console.log(error.message)
 
-  if (error.message === 'CastError') {
+  if (error.name === 'CastError' && error.kind === 'ObjectId') {
     return response.status(400).send({ error: 'malformatted id' })
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
   }
 }
 app.use(errorHandler)
