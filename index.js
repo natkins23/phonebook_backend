@@ -62,6 +62,9 @@ app.post('/api/persons', (req, res, next) => {
   })
   person.save().then((savedPerson) => {
     res.json(savedPerson)
+  }).catch((error) => {
+    //using 3.16 errorHandling middleware
+    next(error)
   })
 })
 
