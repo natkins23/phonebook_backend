@@ -1,6 +1,8 @@
 //3.13 module to fetch data from mongodb server with mongoose
-
 const mongoose = require('mongoose')
+//3.18 - validation
+var uniqueValidator = require('mongoose-unique-validator');
+
 
 const url = process.env.MONGODB_URI
 
@@ -12,10 +14,17 @@ mongoose.connect(url).then(result=>{
     console.log(`error connecting to MongoDB`, error.message);
 })
 
+
 const personSchema = new mongoose.Schema({
-    name: String,
-    number: String
-})
+    name: {
+      type: String,
+      unique: true
+    },
+    number: {
+      type: String
+    }
+  })
+
 
 personSchema.set('toJSON',{
     transform:(document,returnedObject)=>{
@@ -24,5 +33,8 @@ personSchema.set('toJSON',{
         delete returnedObject.__v
     }
 })
+
+//3.18 - add plugin
+personSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Person', personSchema)

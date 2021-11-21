@@ -7,6 +7,7 @@ const cors = require('cors')
 const Person = require('./models/person')
 const { json } = require('express')
 
+
 const app = express()
 
 //3.8 - morgan - logger middleware
@@ -57,8 +58,8 @@ app.post('/api/persons', (req, res, next) => {
     return response.status(400).json({ error: 'number missing' })
   }
   const person = new Person({
-    name: req.body.name,
-    number: req.body.number,
+    name: body.name,
+    number: body.number,
   })
   person.save().then((savedPerson) => {
     res.json(savedPerson)
@@ -101,12 +102,12 @@ app.use(unknownEndpoint)
 
 //3.16 -error handler middleware
 const errorHandler = (error, req, res, next) => {
-  console.log(error.message)
+  console.log('test', error.message)
 
   if (error.name === 'CastError' && error.kind === 'ObjectId') {
-    return response.status(400).send({ error: 'malformatted id' })
+    return res.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
-    return response.status(400).json({ error: error.message })
+    return res.status(400).json({ error: error.message })
   }
 }
 app.use(errorHandler)
