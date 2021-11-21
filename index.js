@@ -23,7 +23,7 @@ app.use(
 app.get('/api/persons', (req, res, next) => {
   Person.find({}).then((persons) => {
     res.json(persons)
-  })
+  }).catch((error) => next(error))
 })
 
 //3.18 - updated get function based off info
@@ -33,7 +33,7 @@ app.get('/api/info', (req, res, next) => {
     <br><br>
     ${new Date()}`
     res.send(content)
-  })
+  }).catch((error) => next(error))
 })
 
 //3.18 - updated get function based on id
@@ -89,9 +89,7 @@ app.put('/api/persons/:id', (req, res, next) => {
     .then((newPerson) => {
       res.json(newPerson)
     })
-    .catch((error) => {
-      next(error)
-    })
+    .catch((error) => next(error))
 })
 
 const unknownEndpoint = (request, response) => {
@@ -102,7 +100,7 @@ app.use(unknownEndpoint)
 
 //3.16 -error handler middleware
 const errorHandler = (error, req, res, next) => {
-  console.log('test', error.message)
+  console.log(error.message)
 
   if (error.name === 'CastError' && error.kind === 'ObjectId') {
     return res.status(400).send({ error: 'malformatted id' })
