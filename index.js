@@ -24,6 +24,7 @@ app.get('/api/persons', (req, res, next) => {
   Person.find({}).then((persons) => {
     res.json(persons)
   })
+  .catch((error) => next(error))
 })
 
 //3.18 - updated get function based off info
@@ -34,6 +35,7 @@ app.get('/api/info', (req, res, next) => {
     ${new Date()}`
     res.send(content)
   })
+  .catch((error) => next(error))
 })
 
 //3.18 - updated get function based on id
@@ -53,9 +55,9 @@ app.get('/api/persons/:id', (req, res, next) => {
 app.post('/api/persons', (req, res, next) => {
   const body = req.body
   if (body.name === undefined) {
-    return response.status(400).json({ error: 'name missing' })
+    return res.status(400).json({ error: 'name missing' })
   } else if (body.number === undefined) {
-    return response.status(400).json({ error: 'number missing' })
+    return res.status(400).json({ error: 'number missing' })
   }
   const person = new Person({
     name: body.name,
@@ -63,10 +65,8 @@ app.post('/api/persons', (req, res, next) => {
   })
   person.save().then((savedPerson) => {
     res.json(savedPerson)
-  }).catch((error) => {
-    //using 3.16 errorHandling middleware
-    next(error)
   })
+  .catch((error) => next(error))
 })
 
 //3.15 - delete using mongoDB schema
@@ -75,10 +75,7 @@ app.delete('/api/persons/:id', (req, res, next) => {
     .then((result) => {
       res.status(204).end()
     })
-    .catch((error) => {
-      //using 3.16 errorHandling middleware
-      next(error)
-    })
+    .catch((error) => next(error))
 })
 
 //3.17 post using mongoDB
@@ -89,9 +86,7 @@ app.put('/api/persons/:id', (req, res, next) => {
     .then((newPerson) => {
       res.json(newPerson)
     })
-    .catch((error) => {
-      next(error)
-    })
+    .catch((error) => next(error))
 })
 
 const unknownEndpoint = (request, response) => {
@@ -102,7 +97,7 @@ app.use(unknownEndpoint)
 
 //3.16 -error handler middleware
 const errorHandler = (error, req, res, next) => {
-  console.log('test', error.message)
+  console.log(error.message)
 
   if (error.name === 'CastError' && error.kind === 'ObjectId') {
     return res.status(400).send({ error: 'malformatted id' })
