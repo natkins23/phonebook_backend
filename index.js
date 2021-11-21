@@ -52,9 +52,9 @@ app.get('/api/persons/:id', (req, res, next) => {
 app.post('/api/persons', (req, res, next) => {
   const body = req.body
   if (body.name === undefined) {
-    return response.status(400).json({ error: 'name missing' })
+    return res.status(400).json({ error: 'name missing' })
   } else if (body.number === undefined) {
-    return response.status(400).json({ error: 'number missing' })
+    return res.status(400).json({ error: 'number missing' })
   }
   const person = new Person({
     name: req.body.name,
@@ -101,7 +101,7 @@ const errorHandler = (error, req, res, next) => {
   console.log(error.message)
 
   if (error.name === 'CastError') {
-    return response.status(400).send({ error: 'malformatted id' })
+    return res.status(400).send({ error: 'malformatted id' })
   } 
 }
 app.use(errorHandler)
