@@ -97,12 +97,6 @@ app.put('/api/persons/:id', (req, res, next) => {
 })
 
 
-.catch(error => {
-  // 3.20 this is the way to access the error message
-  notifyWith(`${error.response.data.error} `, 'error')
-})
-
-
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
