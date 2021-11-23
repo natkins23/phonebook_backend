@@ -5,7 +5,6 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const Person = require('./models/person')
-const { json } = require('express')
 
 
 const app = express()
@@ -53,15 +52,16 @@ app.get('/api/persons/:id', (req, res, next) => {
 
 //3.14 post req - using MongoDB server
 app.post('/api/persons', (req, res, next) => {
-  const body = req.body
-  if (body.name === undefined) {
+  //destructured req.body
+  const {name,number} = req.body
+  if (name === undefined) {
     return res.status(400).json({ error: 'name missing' })
-  } else if (body.number === undefined) {
+  } else if (number === undefined) {
     return res.status(400).json({ error: 'number missing' })
   }
   const person = new Person({
-    name: body.name,
-    number: body.number,
+    name: name,
+    number: number,
   })
   person.save().then((savedPerson) => {
     res.json(savedPerson)
@@ -72,17 +72,24 @@ app.post('/api/persons', (req, res, next) => {
 //3.15 - delete using mongoDB schema
 app.delete('/api/persons/:id', (req, res, next) => {
   Person.findByIdAndRemove(req.params.id)
-    .then((result) => {
+    .then(() => {
       res.status(204).end()
     })
     .catch((error) => next(error))
 })
 
 //3.17 post using mongoDB
+//3.20 - enabled validation on update operation
 app.put('/api/persons/:id', (req, res, next) => {
-  const body = req.body
-  person = { name: body.name, number: body.number }
-  Person.findByIdAndUpdate(req.params.id, person, { new: true })
+  const {name,number} = req.body
+  person = { name: name, number: number }
+  //3.20 - object that provides options to the method findByIdAndUpdate
+  const opts = {  
+    new: true,  // return the updated object on success (for then?)
+    runValidators: true, // run validators on update (update validation default is off)
+    context: 'query'  // required by mongoose-unique-validator
+}
+  Person.findByIdAndUpdate(req.params.id, person, opts)
     .then((newPerson) => {
       res.json(newPerson)
     })

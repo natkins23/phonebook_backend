@@ -15,13 +15,16 @@ mongoose.connect(url).then(result=>{
 })
 
 //3.19 - unique required
+//3.20 - added validators
 const personSchema = new mongoose.Schema({
     name: {
       type: String,
+      minlength: 3,
       unique: true
     },
     number: {
-      type: String
+      type: String,
+      minlength: 8,
     }
   })
 
