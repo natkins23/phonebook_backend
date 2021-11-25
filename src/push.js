@@ -1,5 +1,6 @@
 const { exec } = require('child_process')
-let args = process.argv
+
+const args = process.argv
 
 let msg = args.slice(2).join(' ')
 if (!msg) {

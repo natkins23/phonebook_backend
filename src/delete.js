@@ -1,7 +1,8 @@
 const { exec } = require('child_process')
-let args = process.argv
 
-let deleteBranch = args.slice(2).join(' ')
+const args = process.argv
+
+const deleteBranch = args.slice(2).join(' ')
 console.log(`Deleting branch... (${deleteBranch})`)
 
 exec(`git branch -d "${deleteBranch}"`, deleteLocal)

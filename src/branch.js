@@ -1,7 +1,8 @@
 const { exec } = require('child_process')
-let args = process.argv
 
-let newBranch = args.slice(2).join(' ')
+const args = process.argv
+
+const newBranch = args.slice(2).join(' ')
 
 console.log(`Creating new branch... (${newBranch})`)
 exec(`git branch "${newBranch}"`, makeBranch)

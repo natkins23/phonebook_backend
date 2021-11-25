@@ -1,9 +1,10 @@
 const { exec } = require('child_process')
-let args = process.argv
-let msg = args.slice(3).join(' ')
-let exercise = args.slice(2, 3).join(' ')
 
-//pushing changes
+const args = process.argv
+let msg = args.slice(3).join(' ')
+const exercise = args.slice(2, 3).join(' ')
+
+// pushing changes
 console.log(`Nice job completing exercise ${exercise} saving your changes... (${msg})`)
 
 console.log(`Adding, committing, and pushing changes to main...`)
@@ -41,8 +42,8 @@ function pushcb(err) {
     console.log(`Changes pushed`)
 }
 
-//createing new branch
-let newBranch = exercise
+// createing new branch
+const newBranch = exercise
 
 setTimeout(() => exec(`git branch "${newBranch}"`, makeBranch), 3000)
 

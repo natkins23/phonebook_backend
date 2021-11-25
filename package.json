@@ -15,7 +15,8 @@
         "qbranch": "node src/branch.js",
         "qdeleteB": "node src/delete.js",
         "qPB": "node src/push-then-branch.js",
-        "lint": "eslint ."
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix"
     },
     "author": "Nathan Watkins",
     "license": "ISC",
@@ -28,9 +29,14 @@
         "morgan": "^1.10.0"
     },
     "devDependencies": {
-        "eslint": "^8.3.0",
+        "eslint": "^8.2.0",
+        "eslint-config-airbnb": "^19.0.1",
         "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-import": "^2.25.3",
+        "eslint-plugin-jsx-a11y": "^6.5.1",
         "eslint-plugin-prettier": "^4.0.0",
+        "eslint-plugin-react": "^7.27.1",
+        "eslint-plugin-react-hooks": "^4.3.0",
         "nodemon": "^2.0.14",
         "prettier": "2.4.1"
     }

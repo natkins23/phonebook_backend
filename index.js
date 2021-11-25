@@ -1,5 +1,5 @@
-//3.13 - dotenv added / Person model imported
-//requiring dotenv allows us to reference enviornment variables when creating a Person model
+// 3.13 - dotenv added / Person model imported
+// requiring dotenv allows us to reference enviornment variables when creating a Person model
 require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
@@ -8,14 +8,14 @@ const Person = require('./models/person')
 
 const app = express()
 
-//3.8 - morgan - logger middleware
+// 3.8 - morgan - logger middleware
 morgan.token('body', req => JSON.stringify(req.body))
 
 app.use(express.static('build'))
 app.use(cors())
 app.use(express.json())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
-//3.13 - updated to recieve persons from mongodb server
+// 3.13 - updated to recieve persons from mongodb server
 app.get('/api/persons', (req, res, next) => {
     Person.find({})
         .then(persons => {
@@ -24,7 +24,7 @@ app.get('/api/persons', (req, res, next) => {
         .catch(error => next(error))
 })
 
-//3.18 - updated get function based off info
+// 3.18 - updated get function based off info
 app.get('/api/info', (req, res, next) => {
     Person.find({})
         .then(persons => {
@@ -36,7 +36,7 @@ app.get('/api/info', (req, res, next) => {
         .catch(error => next(error))
 })
 
-//3.18 - updated get function based on id
+// 3.18 - updated get function based on id
 app.get('/api/persons/:id', (req, res, next) => {
     Person.findById(req.params.id)
         .then(person => {
@@ -49,18 +49,19 @@ app.get('/api/persons/:id', (req, res, next) => {
         .catch(error => next(error))
 })
 
-//3.14 post req - using MongoDB server
+// 3.14 post req - using MongoDB server
 app.post('/api/persons', (req, res, next) => {
-    //destructured req.body
+    // destructured req.body
     const { name, number } = req.body
     if (name === undefined) {
         return res.status(400).json({ error: 'name missing' })
-    } else if (number === undefined) {
+    }
+    if (number === undefined) {
         return res.status(400).json({ error: 'number missing' })
     }
     const person = new Person({
-        name: name,
-        number: number,
+        name,
+        number,
     })
     person
         .save()
@@ -70,7 +71,7 @@ app.post('/api/persons', (req, res, next) => {
         .catch(error => next(error))
 })
 
-//3.15 - delete using mongoDB schema
+// 3.15 - delete using mongoDB schema
 app.delete('/api/persons/:id', (req, res, next) => {
     Person.findByIdAndRemove(req.params.id)
         .then(() => {
@@ -79,12 +80,12 @@ app.delete('/api/persons/:id', (req, res, next) => {
         .catch(error => next(error))
 })
 
-//3.17 post using mongoDB
-//3.20 - enabled validation on update operation
+// 3.17 post using mongoDB
+// 3.20 - enabled validation on update operation
 app.put('/api/persons/:id', (req, res, next) => {
     const { name, number } = req.body
-    const person = { name: name, number: number }
-    //3.20 - object that provides options to the method findByIdAndUpdate
+    const person = { name, number }
+    // 3.20 - object that provides options to the method findByIdAndUpdate
     const opts = {
         new: true, // return the updated object on success (for then?)
         runValidators: true, // run validators on update (update validation default is off)
@@ -103,19 +104,20 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint)
 
-//3.16 -error handler middleware
+// 3.16 -error handler middleware
 const errorHandler = (error, req, res, next) => {
     console.log(error.message)
 
     if (error.name === 'CastError' && error.kind === 'ObjectId') {
         return res.status(400).send({ error: 'malformatted id' })
-    } else if (error.name === 'ValidationError') {
+    }
+    if (error.name === 'ValidationError') {
         return res.status(400).json({ error: error.message })
     }
     next(error)
 }
 app.use(errorHandler)
 
-const PORT = process.env.PORT
+const { PORT } = process.env
 app.listen(PORT)
 console.log(`Server running on port ${PORT}`)
