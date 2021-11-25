@@ -1,7 +1,6 @@
 // //3.13 - mongo.js deprecated
 // const mongoose = require('mongoose')
 
-
 // if (process.argv.length < 3) {
 //   console.log('To display your phonebook, please provide the password as an argument: node mongo.js <password>')
 //   console.log('To save a contact, please provide the 3 arguments (a password, a name, and a number): node mongo.js <password> <name> <number>')
@@ -48,6 +47,3 @@
 //     mongoose.connection.close()
 //   })
 // }
-
-
-

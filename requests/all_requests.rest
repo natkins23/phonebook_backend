@@ -17,7 +17,7 @@ Content-Type:application/json
     "number": "12345678"
   }
 
-### Heroku server 
+### Heroku server
 
 GET https://calm-bastion-54373.herokuapp.com/api/persons
 
@@ -30,6 +30,6 @@ POST https://calm-bastion-54373.herokuapp.com/api/persons  HTTP/1.1
 Content-Type:application/json
 
 {
-    "name": "test",
-    "number": "123"
+    "name": "sdsadasdsde",
+    "number": "12345678"
   }

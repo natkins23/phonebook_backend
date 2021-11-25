@@ -1,41 +1,40 @@
-const {exec} = require('child_process')
+const { exec } = require('child_process')
 let args = process.argv
 
 let newBranch = args.slice(2).join(' ')
 
 console.log(`Creating new branch... (${newBranch})`)
-exec(`git branch \"${newBranch}\"`,makeBranch)
+exec(`git branch "${newBranch}"`, makeBranch)
 
-function makeBranch(err, stdout,stderr){
-    if (err){
+function makeBranch(err) {
+    if (err) {
         console.log(err)
-        return;
+        return
     }
-exec(`git checkout \"${newBranch}\"`,checkoutNewBranch)
-console.log(`Branch made`)
+    exec(`git checkout "${newBranch}"`, checkoutNewBranch)
+    console.log(`Branch made`)
 }
 
-function checkoutNewBranch(err, stdout,stderr){
-    if (err){
+function checkoutNewBranch(err) {
+    if (err) {
         console.log(err)
-        return;
+        return
     }
-exec(`git push --set -u origin \"${newBranch}\"`,pushToRemote)
-console.log(`Remote branch created`)
+    exec(`git push --set -u origin "${newBranch}"`, pushToRemote)
+    console.log(`Remote branch created`)
 }
 
-function pushToRemote(err, stdout,stderr){
-    if (err){
+function pushToRemote(err) {
+    if (err) {
         console.log(err)
-        return;
+        return
     }
-exec(`git checkout main"`,checkoutMain)
+    exec(`git checkout main"`, checkoutMain)
 }
-function checkoutMain(err, stdout,stderr){
-    if (err){
+function checkoutMain(err) {
+    if (err) {
         console.log(err)
-        return;
+        return
     }
-console.log(`Changes pushed to remote branch`)
-
+    console.log(`Changes pushed to remote branch`)
 }

@@ -1,32 +1,37 @@
 {
-  "name": "phonbook_backend",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:ui": "rm -rf build && cd ../phonebook/ && npm run build --prod && cp -r build ../phonebook_backend",
-    "deploy": "git push heroku main",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
-    "logs:prod": "heroku logs --tail",
-    "qpush": "node src/push.js",
-    "qbranch": "node src/branch.js",
-    "qdeleteB": "node src/delete.js",
-    "qPB": "node src/push-then-branch.js"
-  },
-  "author": "Nathan Watkins",
-  "license": "ISC",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "mongoose": "^6.0.12",
-    "mongoose-unique-validator": "^3.0.0",
-    "morgan": "^1.10.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.14"
-  }
+    "name": "phonbook_backend",
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "nodemon index.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build:ui": "rm -rf build && cd ../phonebook/ && npm run build --prod && cp -r build ../phonebook_backend",
+        "deploy": "git push heroku main",
+        "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
+        "logs:prod": "heroku logs --tail",
+        "qpush": "node src/push.js",
+        "qbranch": "node src/branch.js",
+        "qdeleteB": "node src/delete.js",
+        "qPB": "node src/push-then-branch.js",
+        "lint": "eslint ."
+    },
+    "author": "Nathan Watkins",
+    "license": "ISC",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "mongoose": "^6.0.12",
+        "mongoose-unique-validator": "^3.0.0",
+        "morgan": "^1.10.0"
+    },
+    "devDependencies": {
+        "eslint": "^8.3.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "nodemon": "^2.0.14",
+        "prettier": "2.4.1"
+    }
 }
