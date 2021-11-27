@@ -1,23 +1,8 @@
-// 3.13 module to fetch data from mongodb server with mongoose
+//  need to import the enviornment variables from config.js
+
 const mongoose = require('mongoose')
-// 3.19 - validation
 const uniqueValidator = require('mongoose-unique-validator')
 
-const url = process.env.MONGODB_URI
-
-console.log('connecting to', url)
-
-mongoose
-    .connect(url)
-    .then(() => {
-        console.log('connected to MongoDB')
-    })
-    .catch(error => {
-        console.log(`error connecting to MongoDB`, error.message)
-    })
-
-// 3.19 - unique required
-// 3.20 - added validators
 const personSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -38,7 +23,6 @@ personSchema.set('toJSON', {
     },
 })
 
-// 3.19 - add plugin
 personSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Person', personSchema)
