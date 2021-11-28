@@ -1,9 +1,10 @@
-const express = require('express')
-// using express instead of http 'http = require('http')'
-const app = express()
+const http = require('http')
+const app = require('./app') // varsinainen Express-sovellus
 const config = require('./utils/config')
 const logger = require('./utils/logger')
 
-app.listen(config.PORT, () => {
+const server = http.createServer(app)
+
+server.listen(config.PORT, () => {
     logger.info(`Server running on port ${config.PORT}`)
 })
