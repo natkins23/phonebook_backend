@@ -29,7 +29,7 @@ const errorHandler = (error, req, res, next) => {
     next(error)
 }
 
-module.export = {
+module.exports = {
     // morganLogger,
     requestLogger,
     unknownEndpoint,

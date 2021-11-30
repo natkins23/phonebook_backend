@@ -1,12 +1,13 @@
 const express = require('express')
 const cors = require('cors')
+
+const app = express()
+
 const mongoose = require('mongoose')
 const config = require('./utils/config')
 const personRouter = require('./controllers/persons')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
-
-const app = express()
 
 logger.info('connecting to', config.MONGODB_URI)
 
