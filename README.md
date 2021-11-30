@@ -1,3 +1,3 @@
 link to app:
-https://calm-bastion-54373.herokuapp.com/
-https://calm-bastion-54373.herokuapp.com/api/persons
+https://phonebook-refactored.herokuapp.com/
+https://phonebook-refactored.herokuapp.com/api/persons

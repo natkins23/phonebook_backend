@@ -14,7 +14,7 @@ Content-Type:application/json
   }
 
 ### Heroku server
-GET https://phonebook-refactored.herokuapp.com/api/person
+GET https://phonebook-refactored.herokuapp.com/api/persons
 
 ###
 DELETE https://phonebook-refactored.herokuapp.com/api/persons/2
