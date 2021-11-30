@@ -14,13 +14,13 @@ Content-Type:application/json
   }
 
 ### Heroku server
-GET https://calm-bastion-54373.herokuapp.com/api/persons
+GET https://phonebook-refactored.herokuapp.com/api/person
 
 ###
-DELETE https://calm-bastion-54373.herokuapp.com/api/persons/2
+DELETE https://phonebook-refactored.herokuapp.com/api/persons/2
 
 ###
-POST https://calm-bastion-54373.herokuapp.com/api/persons  HTTP/1.1
+POST https://phonebook-refactored.herokuapp.com/api/persons  HTTP/1.1
 Content-Type:application/json
 
 {
