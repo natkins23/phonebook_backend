@@ -25,7 +25,7 @@ app.use(express.static('build'))
 app.use(express.json())
 app.use(middleware.requestLogger)
 
-app.use('/api/person', personRouter)
+app.use('/api/persons', personRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
