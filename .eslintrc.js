@@ -8,6 +8,6 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 12,
     },
-    rules: { 'prettier/prettier': 'error' },
+    rules: { 'prettier/prettier': 'error', 'linebreak-style': 'unix' },
     plugins: ['prettier'],
 }

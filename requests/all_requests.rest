@@ -13,7 +13,7 @@ POST http://localhost:3000/api/persons  HTTP/1.1
 Content-Type:application/json
 
 {
-    "name": "sde",
+    "name": "sddsadasasdase",
     "number": "12345678"
   }
 
