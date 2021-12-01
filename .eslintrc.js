@@ -1,5 +1,3 @@
-const { off } = require('./app')
-
 module.exports = {
     env: {
         commonjs: true,
