@@ -15,7 +15,7 @@ module.exports = {
         'no-underscore-dangle': 'off',
         'no-param-reassign': 'off',
         'consistent-return': 'off',
-        'linebreak-style': 'off',
+        'linebreak-style': 'unix',
     },
     plugins: ['prettier'],
 }
