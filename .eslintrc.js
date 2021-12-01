@@ -1,3 +1,5 @@
+const { off } = require('./app')
+
 module.exports = {
     env: {
         commonjs: true,
@@ -15,6 +17,7 @@ module.exports = {
         'no-underscore-dangle': 'off',
         'no-param-reassign': 'off',
         'consistent-return': 'off',
+        'linebreak-style': 'off',
     },
     plugins: ['prettier'],
 }
